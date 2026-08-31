@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up — Cluster</title>
+  <meta name="description" content="Create your Cluster account and start your 14-day free trial." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .plan-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-3);
+    }
+
+    .plan-option {
+      position: relative;
+    }
+
+    .plan-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+
+    .plan-option label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-1);
+      padding: var(--space-4) var(--space-3);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      text-align: center;
+      transition: border-color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .plan-option input:checked + label {
+      border-color: var(--color-indigo-500);
+      background: var(--color-indigo-50);
+    }
+
+    .plan-option:focus-within label {
+      outline: 2px solid var(--color-indigo-500);
+      outline-offset: 2px;
+    }
+
+    .plan-name  { font-size: var(--text-sm); font-weight: var(--fw-semibold); }
+    .plan-price { font-size: var(--text-xs); color: var(--color-text-secondary); }
+  </style>
+</head>
+<body>
+<div class="auth-page">
+
+  <!-- Left visual -->
+  <div class="auth-visual" role="complementary" aria-label="Cluster plan info">
+    <div class="auth-visual-content">
+      <a href="index.html" style="font-size:2rem; font-weight:800; color:#fff; letter-spacing:-0.04em; text-decoration:none; margin-bottom:2rem; display:block;">Cluster</a>
+      <h2>Start your free trial</h2>
+      <p>Join 12,000+ businesses managing their finances smarter with Cluster.</p>
+      <ul style="list-style:none; margin-top:2rem; display:flex; flex-direction:column; gap:1rem; text-align:left;">
+        <li style="display:flex; gap:0.75rem; align-items:flex-start;"><span style="background:rgba(255,255,255,0.2); border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.75rem;">✓</span><span style="font-size:0.9375rem; opacity:0.9;">14 days free — no credit card required</span></li>
+        <li style="display:flex; gap:0.75rem; align-items:flex-start;"><span style="background:rgba(255,255,255,0.2); border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.75rem;">✓</span><span style="font-size:0.9375rem; opacity:0.9;">Cancel anytime — no lock-in contracts</span></li>
+        <li style="display:flex; gap:0.75rem; align-items:flex-start;"><span style="background:rgba(255,255,255,0.2); border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.75rem;">✓</span><span style="font-size:0.9375rem; opacity:0.9;">Onboarding call with a finance expert</span></li>
+        <li style="display:flex; gap:0.75rem; align-items:flex-start;"><span style="background:rgba(255,255,255,0.2); border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.75rem;">✓</span><span style="font-size:0.9375rem; opacity:0.9;">Migrate your data for free</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Right form -->
+  <div class="auth-form-side">
+    <div class="auth-form-box">
+      <a href="index.html" style="font-size:0.875rem; color:var(--color-text-secondary); text-decoration:none; display:flex; align-items:center; gap:0.5rem; margin-bottom:2rem;">← Back to home</a>
+      <h1 class="auth-form-title">Create your account</h1>
+      <p class="auth-form-subtitle">Already have an account? <a href="login.html" id="go-login">Sign in</a></p>
+
+      <!-- Alert -->
+      <div id="signup-alert" class="alert" role="alert" aria-live="polite"></div>
+
+      <!-- Google -->
+      <button type="button" class="btn btn-google" id="google-signup-btn" aria-label="Sign up with Google">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Sign up with Google
+      </button>
+
+      <div class="auth-divider">or sign up with email</div>
+
+      <form id="signup-form" novalidate aria-label="Sign up form" style="display:flex; flex-direction:column; gap:var(--space-5);">
+
+        <div class="form-group" id="name-group">
+          <label class="form-label" for="s-name">Full Name</label>
+          <input class="input" type="text" id="s-name" name="name" placeholder="Kathryn Murphy" autocomplete="name" aria-required="true" aria-describedby="name-err" />
+          <span class="form-error" id="name-err">Please enter your full name.</span>
+        </div>
+
+        <div class="form-group" id="s-email-group">
+          <label class="form-label" for="s-email">Email Address</label>
+          <input class="input" type="email" id="s-email" name="email" placeholder="kathryn@company.com" autocomplete="email" aria-required="true" aria-describedby="s-email-err" />
+          <span class="form-error" id="s-email-err">Please enter a valid email address.</span>
+        </div>
+
+        <div class="form-group" id="s-pass-group">
+          <label class="form-label" for="s-password">Password</label>
+          <div style="position:relative;">
+            <input class="input" type="password" id="s-password" name="password" placeholder="At least 8 characters" autocomplete="new-password" aria-required="true" aria-describedby="s-pass-err" style="padding-right:3rem;" />
+            <button type="button" id="toggle-s-pass" style="position:absolute; right:1rem; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:var(--color-text-muted); font-size:1rem;" aria-label="Toggle password visibility">👁</button>
+          </div>
+          <span class="form-error" id="s-pass-err">Password must be at least 8 characters.</span>
+        </div>
+
+        <!-- Plan selection -->
+        <div>
+          <p class="form-label" style="margin-bottom:var(--space-3);" id="plan-label">Select Your Plan</p>
+          <div class="plan-selector" role="radiogroup" aria-labelledby="plan-label">
+            <div class="plan-option">
+              <input type="radio" name="plan" id="plan-standard" value="standard" />
+              <label for="plan-standard">
+                <span class="plan-name">Standard</span>
+                <span class="plan-price">$199/hr</span>
+              </label>
+            </div>
+            <div class="plan-option">
+              <input type="radio" name="plan" id="plan-premium" value="premium" checked />
+              <label for="plan-premium">
+                <span class="plan-name">Premium</span>
+                <span class="plan-price">$259/hr</span>
+              </label>
+            </div>
+            <div class="plan-option">
+              <input type="radio" name="plan" id="plan-agency" value="agency" />
+              <label for="plan-agency">
+                <span class="plan-name">Agency</span>
+                <span class="plan-price">$699/hr</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full btn-lg" id="signup-btn" aria-label="Create your account">
+          <span class="btn-label">Create Account</span>
+          <span class="spinner" aria-hidden="true"></span>
+        </button>
+
+        <p style="font-size:var(--text-xs); color:var(--color-text-muted); text-align:center; line-height:var(--lh-relaxed);">
+          By signing up you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+        </p>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { signUp, signInWithGoogle, redirectIfLoggedIn, friendlyAuthError } from './auth.js';
+  import { setSubscription } from './firestore.js';
+
+  // Read pre-selected plan from URL (e.g. signup.html?plan=premium)
+  const urlPlan = new URLSearchParams(window.location.search).get('plan');
+  if (urlPlan && document.getElementById(`plan-${urlPlan}`)) {
+    document.getElementById(`plan-${urlPlan}`).checked = true;
+  }
+
+  redirectIfLoggedIn('dashboard.html');
+
+  const form      = document.getElementById('signup-form');
+  const alertBox  = document.getElementById('signup-alert');
+  const signupBtn = document.getElementById('signup-btn');
+
+  function setGroupError(id, hasError) {
+    document.getElementById(id).classList.toggle('has-error', hasError);
+  }
+
+  function showAlert(msg, type = 'danger') {
+    alertBox.className = `alert alert-${type} visible`;
+    alertBox.textContent = msg;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    alertBox.className = 'alert';
+
+    const name     = document.getElementById('s-name').value.trim();
+    const email    = document.getElementById('s-email').value.trim();
+    const password = document.getElementById('s-password').value;
+    const plan     = document.querySelector('input[name="plan"]:checked')?.value || 'standard';
+
+    let valid = true;
+    setGroupError('name-group',    !name);     if (!name)    valid = false;
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    setGroupError('s-email-group', !emailOk);  if (!emailOk) valid = false;
+    setGroupError('s-pass-group',  password.length < 8); if (password.length < 8) valid = false;
+
+    if (!valid) return;
+
+    signupBtn.classList.add('loading');
+    signupBtn.disabled = true;
+
+    try {
+      const user = await signUp({ email, password, displayName: name, plan });
+      await setSubscription(user.uid, plan);
+      window.location.href = 'dashboard.html';
+    } catch (err) {
+      showAlert(friendlyAuthError(err.code));
+    } finally {
+      signupBtn.classList.remove('loading');
+      signupBtn.disabled = false;
+    }
+  });
+
+  // Google sign-up
+  document.getElementById('google-signup-btn').addEventListener('click', async () => {
+    alertBox.className = 'alert';
+    try {
+      const user = await signInWithGoogle();
+      const plan = document.querySelector('input[name="plan"]:checked')?.value || 'standard';
+      await setSubscription(user.uid, plan);
+      window.location.href = 'dashboard.html';
+    } catch (err) {
+      showAlert(friendlyAuthError(err.code));
+    }
+  });
+
+  // Password toggle
+  document.getElementById('toggle-s-pass').addEventListener('click', () => {
+    const input = document.getElementById('s-password');
+    input.type = input.type === 'password' ? 'text' : 'password';
+  });
+</script>
+</body>
+</html>

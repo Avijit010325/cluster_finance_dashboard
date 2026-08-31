@@ -1,0 +1,38 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── USERS ──────────────────────────────────────────────
+    // Only the owner can read or write their own profile
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // ── SUBSCRIPTIONS ───────────────────────────────────────
+    // Only the owner can read or write their own subscription
+    match /subscriptions/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // ── CONTACTS ────────────────────────────────────────────
+    // Any authenticated user can submit a contact form (create only)
+    // Nobody except admins (via Admin SDK) should read these
+    match /contacts/{docId} {
+      allow create: if request.auth != null
+                    && request.resource.data.keys().hasAll(['name', 'email', 'message'])
+                    && request.resource.data.name is string
+                    && request.resource.data.email is string
+                    && request.resource.data.message is string
+                    && request.resource.data.name.size() > 0
+                    && request.resource.data.email.size() > 0
+                    && request.resource.data.message.size() > 0;
+      allow read, update, delete: if false; // Admin SDK only
+    }
+
+    // ── DENY ALL OTHERS ─────────────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
